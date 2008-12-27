@@ -1,0 +1,19 @@
+MediaWiki Extension — SemanticHTML
+
+SemanticHTML is a simple MediaWiki extension to add support for the HTML4
+phrase elements to MediaWiki. By default, MediaWiki strips out these
+descriptive elements.
+
+This extension restore support for:
+
+  * abbr
+  * acronym
+  * dfn
+  * kbd
+  * samp
+  * var
+  
+Originally written for microformats.org/wiki, by Ben Ward
+
+  * http://microformats.org/wiki/
+  * http://ben-ward.co.uk
