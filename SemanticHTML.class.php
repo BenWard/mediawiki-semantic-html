@@ -24,7 +24,22 @@ class SemanticHTMLParser {
            'parseSamp' => 'samp',
            'parseTime' => 'time',
            'parseVar' => 'var',
-        );
+	   );
+
+	// Attribute whitelist (Sanitizer::setupAttributeWhitelist)
+	private static $safeAttributes = array(
+		# HTML
+		'id',
+		'class',
+		'datetime',
+		'style',
+		'lang',
+		'dir',
+		'title',
+
+		# WAI-ARIA
+		'role',
+	);
 
     // __callStatic isn't implemented until 5.3, so need explicit methods:
     public static function parseAbbr($text, $attributes, $parser) {
@@ -50,8 +65,10 @@ class SemanticHTMLParser {
     }    
     
     private static function parseElement($element, $text, $attributes, $parser) {    
-        $return = "<$element";
-        if(is_array($attributes)) {
+		$return = "<$element";		
+		if ( is_array($attributes) ) {
+			// Sanitize the attribute soup
+			$attributes = Sanitizer::validateAttributes( $attributes, SemanticHTMLParser::$safeAttributes );
             foreach($attributes as $name=>$value) {
                 $return .= " $name=\"$value\"";
             }
